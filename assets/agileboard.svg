@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#eeeeea"/>
+  <rect x="95" y="90" width="1010" height="620" rx="42" fill="#fff" stroke="#d6d6cf"/>
+  <text x="150" y="165" font-family="Inter,Arial" font-size="48" font-weight="900" fill="#111">AGILEBOARD</text>
+  <rect x="150" y="220" width="260" height="410" rx="26" fill="#f7f7f4" stroke="#d6d6cf"/>
+  <rect x="470" y="220" width="260" height="410" rx="26" fill="#f7f7f4" stroke="#d6d6cf"/>
+  <rect x="790" y="220" width="260" height="410" rx="26" fill="#f7f7f4" stroke="#d6d6cf"/>
+  <text x="180" y="275" font-family="Inter,Arial" font-size="26" font-weight="800" fill="#111">To Do</text>
+  <text x="500" y="275" font-family="Inter,Arial" font-size="26" font-weight="800" fill="#111">In Progress</text>
+  <text x="820" y="275" font-family="Inter,Arial" font-size="26" font-weight="800" fill="#111">Done</text>
+  <g fill="#fff" stroke="#d6d6cf"><rect x="180" y="320" width="200" height="75" rx="16"/><rect x="180" y="420" width="200" height="75" rx="16"/><rect x="500" y="320" width="200" height="75" rx="16"/><rect x="500" y="420" width="200" height="75" rx="16"/><rect x="820" y="320" width="200" height="75" rx="16"/><rect x="820" y="420" width="200" height="75" rx="16"/></g>
+  <g fill="#111"><circle cx="205" cy="350" r="8"/><circle cx="525" cy="350" r="8"/><circle cx="845" cy="350" r="8"/></g>
+  <text x="180" y="675" font-family="Inter,Arial" font-size="22" fill="#777">AWS Cognito • RDS • S3 • Elastic Beanstalk</text>
+</svg>
