@@ -222,7 +222,7 @@ footer { border-top: 1px solid var(--line); text-align: center; padding: 26px; c
   position: relative;
   z-index: 6;
   width: min(440px, 92%);
-  height: 190px;
+  height: 240px;
   margin: 0 auto 8px;
   border-radius: 30px;
   overflow: hidden;
@@ -286,4 +286,19 @@ footer { border-top: 1px solid var(--line); text-align: center; padding: 26px; c
     height: 160px;
     width: min(360px, 94%);
   }
+}
+/* Move floating labels back around the profile card */
+.card-one {
+  top: 48% !important;
+  left: -9% !important;
+}
+
+.card-two {
+  top: 63% !important;
+  right: -8% !important;
+}
+
+.card-three {
+  bottom: 12% !important;
+  left: -5% !important;
 }
