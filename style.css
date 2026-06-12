@@ -302,3 +302,7 @@ footer { border-top: 1px solid var(--line); text-align: center; padding: 26px; c
   bottom: 12% !important;
   left: -5% !important;
 }
+.robot-video {
+  pointer-events: none;
+  background: transparent;
+}
