@@ -17,3 +17,22 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 document.getElementById('year').textContent = new Date().getFullYear();
+const robotVideo = document.getElementById("robotVideo");
+const robotSoundToggle = document.getElementById("robotSoundToggle");
+
+if (robotVideo && robotSoundToggle) {
+  robotSoundToggle.addEventListener("click", async () => {
+    robotVideo.muted = !robotVideo.muted;
+
+    if (!robotVideo.muted) {
+      robotSoundToggle.textContent = "Sound Off";
+      try {
+        await robotVideo.play();
+      } catch (error) {
+        console.log("Video play was blocked by browser:", error);
+      }
+    } else {
+      robotSoundToggle.textContent = "Sound On";
+    }
+  });
+}
