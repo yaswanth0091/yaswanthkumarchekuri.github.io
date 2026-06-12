@@ -36,3 +36,26 @@ if (robotVideo && robotSoundToggle) {
     }
   });
 }
+// Force robot video autoplay on mobile when allowed
+const robotVideo = document.getElementById("robotVideo");
+
+if (robotVideo) {
+  robotVideo.muted = true;
+  robotVideo.playsInline = true;
+
+  const tryPlayRobot = () => {
+    const playPromise = robotVideo.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Mobile browser may block autoplay in low power/data saver mode.
+      });
+    }
+  };
+
+  window.addEventListener("load", tryPlayRobot);
+  document.addEventListener("DOMContentLoaded", tryPlayRobot);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) tryPlayRobot();
+  });
+}
