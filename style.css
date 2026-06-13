@@ -354,3 +354,40 @@ footer {
     opacity: 0.10;
   }
 }
+/* Strong fix: make scroll background video visible */
+.scroll-bg-video {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover !important;
+  z-index: 0 !important;
+  opacity: 0.28 !important;
+  pointer-events: none !important;
+  filter: saturate(0.9) contrast(1.05) brightness(1.08);
+}
+
+.scroll-bg-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(180deg, rgba(247,247,244,0.50), rgba(247,247,244,0.82)),
+    radial-gradient(circle at 72% 18%, rgba(180,215,255,0.24), transparent 38%);
+}
+
+/* Keep all real website content above background video */
+.site-header,
+main,
+footer {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Let the hero area show background better */
+.hero {
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
+}
