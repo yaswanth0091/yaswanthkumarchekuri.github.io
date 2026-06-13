@@ -33,30 +33,43 @@ if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
 
-// Robot video: play only when hero section is visible
+// Robot video: play only in hero section, try sound ON by default
 const robotVideo = document.getElementById('robotVideo');
 const robotSoundToggle = document.getElementById('robotSoundToggle');
 const robotScene = document.querySelector('.hero-robot-scene');
 
 if (robotVideo && robotScene) {
-  robotVideo.muted = true;
+  let userWantsSound = true;
+
   robotVideo.playsInline = true;
 
+  const updateSoundButton = () => {
+    if (robotSoundToggle) {
+      robotSoundToggle.textContent = robotVideo.muted ? 'Sound On' : 'Sound Off';
+    }
+  };
+
   const playRobot = async () => {
+    robotVideo.muted = !userWantsSound;
+    updateSoundButton();
+
     try {
       await robotVideo.play();
     } catch (error) {
-      // Mobile browsers may block autoplay in low power/data saver mode.
+      // If browser blocks autoplay with sound, fall back to muted autoplay
+      robotVideo.muted = true;
+      updateSoundButton();
+
+      try {
+        await robotVideo.play();
+      } catch (mutedError) {
+        // Some mobile browsers may still block autoplay in low power/data saver mode
+      }
     }
   };
 
   const pauseRobot = () => {
     robotVideo.pause();
-    robotVideo.muted = true;
-
-    if (robotSoundToggle) {
-      robotSoundToggle.textContent = 'Sound On';
-    }
   };
 
   const robotObserver = new IntersectionObserver((entries) => {
@@ -75,15 +88,15 @@ if (robotVideo && robotScene) {
 
   if (robotSoundToggle) {
     robotSoundToggle.addEventListener('click', async () => {
-      robotVideo.muted = !robotVideo.muted;
-      robotSoundToggle.textContent = robotVideo.muted ? 'Sound On' : 'Sound Off';
+      userWantsSound = robotVideo.muted;
 
-      if (!robotVideo.paused) {
-        try {
-          await robotVideo.play();
-        } catch (error) {
-          console.log('Video play blocked:', error);
-        }
+      robotVideo.muted = !userWantsSound;
+      updateSoundButton();
+
+      try {
+        await robotVideo.play();
+      } catch (error) {
+        console.log('Video play blocked:', error);
       }
     });
   }
