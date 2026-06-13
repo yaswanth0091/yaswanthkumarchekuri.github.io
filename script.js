@@ -33,39 +33,57 @@ if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
 
-// Robot video autoplay + sound toggle
+// Robot video: play only when hero section is visible
 const robotVideo = document.getElementById('robotVideo');
 const robotSoundToggle = document.getElementById('robotSoundToggle');
+const robotScene = document.querySelector('.hero-robot-scene');
 
-if (robotVideo) {
+if (robotVideo && robotScene) {
   robotVideo.muted = true;
   robotVideo.playsInline = true;
 
-  const tryPlayRobot = () => {
-    const playPromise = robotVideo.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Mobile browser may block autoplay in low power/data saver mode.
-      });
+  const playRobot = async () => {
+    try {
+      await robotVideo.play();
+    } catch (error) {
+      // Mobile browsers may block autoplay in low power/data saver mode.
     }
   };
 
-  window.addEventListener('load', tryPlayRobot);
-  document.addEventListener('DOMContentLoaded', tryPlayRobot);
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) tryPlayRobot();
+  const pauseRobot = () => {
+    robotVideo.pause();
+    robotVideo.muted = true;
+
+    if (robotSoundToggle) {
+      robotSoundToggle.textContent = 'Sound On';
+    }
+  };
+
+  const robotObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        playRobot();
+      } else {
+        pauseRobot();
+      }
+    });
+  }, {
+    threshold: 0.45
   });
+
+  robotObserver.observe(robotScene);
 
   if (robotSoundToggle) {
     robotSoundToggle.addEventListener('click', async () => {
       robotVideo.muted = !robotVideo.muted;
       robotSoundToggle.textContent = robotVideo.muted ? 'Sound On' : 'Sound Off';
 
-      try {
-        await robotVideo.play();
-      } catch (error) {
-        console.log('Video play blocked:', error);
+      if (!robotVideo.paused) {
+        try {
+          await robotVideo.play();
+        } catch (error) {
+          console.log('Video play blocked:', error);
+        }
       }
     });
   }
