@@ -101,3 +101,34 @@ if (robotVideo && robotScene) {
     });
   }
 }
+// Scroll-controlled background video
+const scrollBgVideo = document.getElementById('scrollBgVideo');
+
+if (scrollBgVideo) {
+  scrollBgVideo.pause();
+  scrollBgVideo.currentTime = 0;
+
+  let ticking = false;
+
+  const updateScrollBackgroundVideo = () => {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+
+    if (scrollBgVideo.duration) {
+      scrollBgVideo.currentTime = scrollProgress * scrollBgVideo.duration;
+    }
+
+    ticking = false;
+  };
+
+  const requestScrollVideoUpdate = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateScrollBackgroundVideo);
+      ticking = true;
+    }
+  };
+
+  scrollBgVideo.addEventListener('loadedmetadata', updateScrollBackgroundVideo);
+  window.addEventListener('scroll', requestScrollVideoUpdate, { passive: true });
+  window.addEventListener('resize', requestScrollVideoUpdate);
+}
